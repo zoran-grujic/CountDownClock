@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Clock
+Comment=Count down clock
+TryExec=/home/pi/projects/Python/ConferenceClock/clock.py
+Exec=/home/pi/projects/Python/ConferenceClock/clock.py %f
+Icon=leafpad
+Terminal=false
+Type=Application
+MimeType=text/plain
+Categories=Utility;
