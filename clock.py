@@ -3,7 +3,7 @@
 """
 Created on Fri Jun 23 22:06:01 2017
 
-@author: Zoran
+@author: Zoran Grujić
 """
 
 import sys
