@@ -11,11 +11,11 @@ import os
 import time
 from PyQt4 import QtGui, QtCore
 import configparser
-dir_ = os.path.dirname(os.path.realpath(__file__))
+dir_ = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 config=configparser.ConfigParser() #make config object 
-configFile = dir_ + "\\config.ini"
-config.read(configFile)
+configFile = dir_ + "/config.txt"
+
 
 class ClockWindow(QtGui.QWidget):
     width=None
@@ -34,6 +34,8 @@ class ClockWindow(QtGui.QWidget):
         super(ClockWindow, self).__init__()
         self.width = width
         self.height = height
+        self.getConfig()
+        self.remainingTime = self.talkTime
         
         self.timer = QtCore.QTimer(self)#make timer to belong to the PlotForm class
 
@@ -57,7 +59,14 @@ class ClockWindow(QtGui.QWidget):
         self.helpLabel = QtGui.QLabel('SPACE: restart, p: pause/play,  LEFT: one minute less, RIGHT: one minute plus, UP: font increase, DOWN: font decrease', self)#
 
         mainVBox = QtGui.QVBoxLayout()
-        mainVBox.addWidget(self.clockLabel)
+        mainVBox.addStretch(1)
+        
+        clockHBox = QtGui.QHBoxLayout()
+        clockHBox.addStretch(1)
+        clockHBox.addWidget(self.clockLabel)
+        clockHBox.addStretch(1)
+
+        mainVBox.addLayout(clockHBox)
         mainVBox.addStretch(1)
         mainVBox.addWidget(self.helpLabel)
 
@@ -70,8 +79,13 @@ class ClockWindow(QtGui.QWidget):
         self.timer.start()
         
     def setDisplayTime(self):
-        rmSec = self.remainingTime % 60
-        rmMin= int((self.remainingTime - rmSec)/60)
+        if self.remainingTime > 0:
+            rmSec = self.remainingTime % 60
+            rmMin= int((self.remainingTime - rmSec)/60)
+        else:
+            rmSec = (-self.remainingTime) % 60
+            rmMin= int(((-self.remainingTime) - rmSec)/60)
+
         
         self.clockLabel.setText("{0:02d}:{1:02d}".format(rmMin, rmSec) )
         self.clockLabel.setStyleSheet("font: %spt Comic Sans MS" % self.clockFontSize)
@@ -95,15 +109,28 @@ class ClockWindow(QtGui.QWidget):
             return
         pass
     
+    def getConfig(self):
+        """
+        Read configuration
+        """
+        global config
+
+        config.read(configFile)
+        #print(configFile,"         ",config, "   ", config.sections())
+        self.talkTime = int(eval(config["Talk"]["talktime_sec"]))
+        self.talkQuestions = int(eval(config["Talk"]["questionstime_sec"]))
+        #print(self.talkTime, "   ", self.talkQuestions)
+        
     def setBgColor(self, color):
         self.setStyleSheet("QWidget { background-color: %s; }" % color)
         
     def keyPressEvent(self, event):
         key = event.key()
-        print(key)
+        #print(key)
 
         if key == 32: #space
             #restart
+            self.getConfig()
             self.clockRunning = True
             self.remainingTime = self.talkTime
             return
@@ -140,7 +167,7 @@ def main():
     screen_resolution = app.desktop().screenGeometry()
     wh= [screen_resolution.width(), screen_resolution.height()]
     clock = ClockWindow(wh[0],wh[1])
-    print("Height: ", wh[1])
+    #print("Height: ", wh[1])
     
     clock.show()
     #clock.showMaximized()
