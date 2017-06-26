@@ -145,13 +145,9 @@ def main():
     clock.show()
     #clock.showMaximized()
     
-    app.exec_()#execute connectingForm until closed
+    app.exec_()#execute until closed
     
     exit()
 
 if __name__ == '__main__':
     main() 
-
-
-app = QtWidgets.QApplication([])
-screen_resolution = app.desktop().screenGeometry()
