@@ -7,8 +7,15 @@ Created on Fri Jun 23 22:06:01 2017
 """
 
 import sys
+import os
 import time
 from PyQt4 import QtGui, QtCore
+import configparser
+dir_ = os.path.dirname(os.path.realpath(__file__))
+
+config=configparser.ConfigParser() #make config object 
+configFile = dir_ + "\\config.ini"
+config.read(configFile)
 
 class ClockWindow(QtGui.QWidget):
     width=None
