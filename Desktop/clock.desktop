@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Clock
 Comment=Count down clock
-TryExec=/home/<YOUR INSTALL FOLDER>/ConferenceClock/clock.py
-Exec=/home/<YOUR INSTALL FOLDER>/ConferenceClock/clock.py %f
+TryExec=/home/<YOUR INSTALL FOLDER>/CountDownClock/clock.py
+Exec=/home/<YOUR INSTALL FOLDER>/CountDownClock/clock.py %f
 Icon=leafpad
 Terminal=false
 Type=Application
