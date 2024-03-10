@@ -9,7 +9,7 @@ Created on Fri Jun 23 22:06:01 2017
 import sys
 import os
 import time
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtWidgets, QtCore
 import configparser
 dir_ = os.path.dirname(os.path.realpath(sys.argv[0]))
 
@@ -17,7 +17,7 @@ config=configparser.ConfigParser() #make config object
 configFile = dir_ + "/config.txt"
 
 
-class ClockWindow(QtGui.QWidget):
+class ClockWindow(QtWidgets.QWidget):
     width=None
     height=None
     clockFontSize = 200
@@ -51,17 +51,17 @@ class ClockWindow(QtGui.QWidget):
         font.setSize(50)
         """
 
-        self.clockLabel = QtGui.QLabel("15:00", self)# bottom left to indicate app status
+        self.clockLabel = QtWidgets.QLabel("15:00", self)# bottom left to indicate app status
         #self.clockLabel.setFont(font)
         
         self.setDisplayTime()
 
-        self.helpLabel = QtGui.QLabel('SPACE: restart, p: pause/play,  LEFT: one minute less, RIGHT: one minute plus, UP: font increase, DOWN: font decrease', self)#
+        self.helpLabel = QtWidgets.QLabel('SPACE: restart, p: pause/play,  LEFT: one minute less, RIGHT: one minute plus, UP: font increase, DOWN: font decrease', self)#
 
-        mainVBox = QtGui.QVBoxLayout()
+        mainVBox = QtWidgets.QVBoxLayout()
         mainVBox.addStretch(1)
         
-        clockHBox = QtGui.QHBoxLayout()
+        clockHBox = QtWidgets.QHBoxLayout()
         clockHBox.addStretch(1)
         clockHBox.addWidget(self.clockLabel)
         clockHBox.addStretch(1)
@@ -163,7 +163,8 @@ class ClockWindow(QtGui.QWidget):
 def main():
     
     
-    app = QtGui.QApplication(sys.argv)
+    # app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     screen_resolution = app.desktop().screenGeometry()
     wh= [screen_resolution.width(), screen_resolution.height()]
     clock = ClockWindow(wh[0],wh[1])

@@ -15,12 +15,17 @@ Raspberry Pi
 	Edit file with 	'nano clock.desktop' and replace <YOUR INSTALL FOLDER>...
 	
 	Run from command line: 'python3 clock.py' (be sure that X is running 'startx')
-	
+
+Windows
+-------------------
+
+Edit file Run.bat, change path to your Anaconda folder.
+Double-click Run.bat
 
 Requirements
 ------------
 
-	Tested on Raspberry Pi with Python 3.2.3 and PyQt4. Easy upgrade to PyQt5.  
+	Tested on Raspberry Pi with Python 3.2.3 and PyQt5. 
 	
 
 Author
